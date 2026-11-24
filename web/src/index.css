@@ -1,0 +1,282 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* shadcn/ui tokens (neutral). */
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Diff row tints, set per theme. */
+@layer base {
+  :root {
+    --diff-add-bg: color-mix(in oklab, var(--color-green-500) 10%, transparent);
+    --diff-add-gutter: color-mix(in oklab, var(--color-green-500) 20%, transparent);
+    --diff-add-word: color-mix(in oklab, var(--color-green-500) 30%, transparent);
+    --diff-del-bg: color-mix(in oklab, var(--color-red-500) 10%, transparent);
+    --diff-del-gutter: color-mix(in oklab, var(--color-red-500) 20%, transparent);
+    --diff-del-word: color-mix(in oklab, var(--color-red-500) 30%, transparent);
+  }
+  .dark {
+    --diff-add-bg: color-mix(in oklab, var(--color-green-500) 14%, transparent);
+    --diff-add-gutter: color-mix(in oklab, var(--color-green-500) 24%, transparent);
+    --diff-add-word: color-mix(in oklab, var(--color-green-500) 38%, transparent);
+    --diff-del-bg: color-mix(in oklab, var(--color-red-500) 14%, transparent);
+    --diff-del-gutter: color-mix(in oklab, var(--color-red-500) 24%, transparent);
+    --diff-del-word: color-mix(in oklab, var(--color-red-500) 38%, transparent);
+  }
+}
+
+@utility diff-add-bg {
+  background-color: var(--diff-add-bg);
+}
+@utility diff-add-gutter {
+  background-color: var(--diff-add-gutter);
+}
+@utility diff-del-bg {
+  background-color: var(--diff-del-bg);
+}
+@utility diff-del-gutter {
+  background-color: var(--diff-del-gutter);
+}
+
+.word-add {
+  background-color: var(--diff-add-word);
+  border-radius: 2px;
+}
+
+.word-del {
+  background-color: var(--diff-del-word);
+  border-radius: 2px;
+}
+
+/* Find-in-diff. The current hit has to read as current against a row that may
+   already be tinted as added or removed, so it takes the foreground colour
+   rather than another wash of background. */
+.search-hit {
+  background-color: var(--color-sky-200);
+  border-radius: 2px;
+}
+
+.search-hit-active {
+  background-color: var(--color-sky-500);
+  color: var(--color-white);
+  border-radius: 2px;
+}
+
+.dark .search-hit {
+  background-color: var(--color-sky-800);
+}
+
+.dark .search-hit-active {
+  background-color: var(--color-sky-400);
+  color: var(--color-black);
+}
+
+/* Landing on a line from somewhere else — a symbol, a definition, a hit picked
+   out of the palette. The flash is what tells the eye which of forty rows was
+   the point of the jump; it fades because it is an answer, not a state. */
+@keyframes line-flash {
+  from {
+    background-color: var(--color-sky-200);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+.line-flash > td,
+[data-comment-id].line-flash {
+  animation: line-flash 1.4s ease-out;
+}
+
+.dark .line-flash > td,
+.dark [data-comment-id].line-flash {
+  animation-name: line-flash-dark;
+}
+
+@keyframes line-flash-dark {
+  from {
+    background-color: var(--color-sky-800);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+/* The lines a comment is being written about. An inset bar on the gutter
+   rather than a fill, so the add and remove tints underneath stay readable. */
+.comment-target > td:first-child,
+.comment-drag > td:first-child {
+  box-shadow: inset 3px 0 0 var(--color-sky-500);
+}
+
+.comment-target > td,
+.comment-drag > td {
+  background-image: linear-gradient(
+    color-mix(in oklab, var(--color-sky-500) 12%, transparent),
+    color-mix(in oklab, var(--color-sky-500) 12%, transparent)
+  );
+}
+
+/* Syntax highlighting, mapped onto Tailwind's palette so both themes hold. */
+.hljs-comment,
+.hljs-quote {
+  color: var(--color-muted-foreground);
+  font-style: italic;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-type {
+  color: var(--color-rose-600);
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute {
+  color: var(--color-blue-800);
+}
+.hljs-number,
+.hljs-variable,
+.hljs-template-variable {
+  color: var(--color-blue-600);
+}
+.hljs-title,
+.hljs-section,
+.hljs-title.function_ {
+  color: var(--color-violet-600);
+}
+.hljs-attr,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-built_in,
+.hljs-meta {
+  color: var(--color-blue-600);
+}
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: var(--color-green-700);
+}
+
+.dark .hljs-keyword,
+.dark .hljs-selector-tag,
+.dark .hljs-literal,
+.dark .hljs-type {
+  color: var(--color-rose-300);
+}
+.dark .hljs-string,
+.dark .hljs-regexp,
+.dark .hljs-addition,
+.dark .hljs-attribute {
+  color: var(--color-blue-200);
+}
+.dark .hljs-number,
+.dark .hljs-variable,
+.dark .hljs-template-variable {
+  color: var(--color-blue-300);
+}
+.dark .hljs-title,
+.dark .hljs-section,
+.dark .hljs-title.function_ {
+  color: var(--color-violet-300);
+}
+.dark .hljs-attr,
+.dark .hljs-symbol,
+.dark .hljs-bullet,
+.dark .hljs-built_in,
+.dark .hljs-meta {
+  color: var(--color-blue-300);
+}
+.dark .hljs-name,
+.dark .hljs-selector-id,
+.dark .hljs-selector-class {
+  color: var(--color-green-300);
+}

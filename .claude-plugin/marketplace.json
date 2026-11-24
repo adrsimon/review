@@ -1,0 +1,23 @@
+{
+  "name": "adrsimon",
+  "owner": {
+    "name": "Adrien Simon"
+  },
+  "metadata": {
+    "description": "Practise code review on real pull requests."
+  },
+  "plugins": [
+    {
+      "name": "review-training",
+      "source": "./plugin",
+      "description": "Practise code review on real merged pull requests: review the version the first reviewer saw, then get graded against what the real reviewers caught.",
+      "version": "0.1.0",
+      "license": "MIT",
+      "keywords": [
+        "code-review",
+        "training",
+        "github"
+      ]
+    }
+  ]
+}

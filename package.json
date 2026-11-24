@@ -1,0 +1,60 @@
+{
+  "name": "review",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Practise code review on real pull requests, graded against what the real reviewers caught. A Claude Code plugin, with `review`, a local diff viewer.",
+  "license": "MIT",
+  "author": "Adrien Simon",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrsimon/review.git"
+  },
+  "homepage": "https://github.com/adrsimon/review",
+  "bugs": "https://github.com/adrsimon/review/issues",
+  "keywords": [
+    "code-review",
+    "claude-code",
+    "claude-code-plugin",
+    "git",
+    "diff",
+    "training"
+  ],
+  "type": "module",
+  "bin": {
+    "review": "dist/cli.js"
+  },
+  "engines": {
+    "bun": ">=1.2"
+  },
+  "scripts": {
+    "build": "bun run build:web && bun run build:cli && bun run build:plugin",
+    "build:web": "vite build",
+    "build:cli": "bun build src/cli.ts --bundle --target=bun --format=esm --outfile=dist/cli.js --banner=\"#!/usr/bin/env bun\" && chmod +x dist/cli.js",
+    "dev:server": "bun src/cli.ts",
+    "dev:web": "vite",
+    "typecheck": "tsc --noEmit",
+    "build:plugin": "rm -rf plugin/review && mkdir -p plugin/review && cp -R dist/cli.js dist/web plugin/review/"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/bun": "^1.2.0",
+    "@types/diff": "^7.0.2",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.3.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "diff": "^7.0.0",
+    "highlight.js": "^11.11.1",
+    "lucide-react": "^1.79.0",
+    "radix-ui": "^1.8.1",
+    "react": "^19",
+    "react-dom": "^19",
+    "tailwind-merge": "^3.7.1",
+    "tailwindcss": "^4.3.3",
+    "tw-animate-css": "^1.4.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}
